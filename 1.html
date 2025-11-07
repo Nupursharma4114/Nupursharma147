@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Course Curriculum — HTML Elements Demo</title>
+  <style>
+    body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; line-height:1.6; padding:24px; max-width:900px; margin:0 auto; color:#111 }
+    header { border-bottom:2px solid #eee; padding-bottom:12px; margin-bottom:18px }
+    h1 { font-size:2rem; margin:0 }
+    section { margin:18px 0; padding:12px 14px; background:#fafafa; border-radius:8px; box-shadow:0 1px 0 rgba(0,0,0,0.03) }
+    code { background:#f2f2f6; padding:2px 6px; border-radius:4px; font-family:monospace }
+    .example { padding:8px 12px; border-left:4px solid #d6e4ff; background:#fff }
+    footer { margin-top:22px; font-size:0.9rem; color:#555 }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Course Curriculum — HTML Elements Demonstration</h1>
+    <p style="margin:6px 0 0; color:#555">This page shows examples of headings, text formatting, special characters, and different list types used in a course curriculum layout.</p>
+  </header>
+
+  <section>
+    <h2>Headings</h2>
+    <div class="example">
+      <h1>H1 – Main course title</h1>
+      <h2>H2 – Module title</h2>
+      <h3>H3 – Topic heading</h3>
+      <h4>H4 – Sub-topic</h4>
+      <h5>H5 – Small note</h5>
+      <h6>H6 – Footer heading</h6>
+    </div>
+  </section>
+
+  <section>
+    <h2>Paragraphs &amp; Text Formatting</h2>
+    <div class="example">
+      <p>This is a normal paragraph describing the module. Use paragraphs to break up content into readable chunks.</p>
+
+      <p>Use <strong>bold</strong> to emphasise important concepts, <em>italic</em> for emphasis or titles, and <u>underline</u> for links or special emphasis when appropriate.</p>
+
+      <p>Combined formatting: <strong><em>Bold + Italic</em></strong> and inline code like <code>&lt;section&gt;</code> can appear inside paragraphs.</p>
+
+      <p>Special characters examples: ampersand (&amp;amp;), less-than (&amp;lt;), greater-than (&amp;gt;), non-breaking space (&amp;nbsp;), copyright (&amp;copy;), trademark (&amp;trade;), euro (&amp;euro;).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Lists</h2>
+    <div class="example">
+      <h3>Ordered List (Sequence / Steps)</h3>
+      <ol>
+        <li>Introduction to the course</li>
+        <li>Fundamental concepts
+          <ol>
+            <li>Definitions</li>
+            <li>History &amp; context</li>
+          </ol>
+        </li>
+        <li>Advanced topics</li>
+        <li>Assessment &amp; wrap-up</li>
+      </ol>
+
+      <h3>Unordered List (Bulleted)</h3>
+      <ul>
+        <li>Lectures</li>
+        <li>Labs
+          <ul>
+            <li>Practical sessions</li>
+            <li>Projects</li>
+          </ul>
+        </li>
+        <li>Assignments</li>
+      </ul>
+
+      <h3>Description List (Definition / Metadata)</h3>
+      <dl>
+        <dt>Course Code</dt>
+        <dd>CS101 — Introductory Concepts</dd>
+
+        <dt>Credits</dt>
+        <dd>3 (two lecture hours + one lab hour per week)</dd>
+
+        <dt>Learning Outcomes</dt>
+        <dd>
+          <ul>
+            <li>Understand the basics</li>
+            <li>Apply techniques in labs</li>
+          </ul>
+        </dd>
+      </dl>
+
+      <h3>Nested Lists</h3>
+      <p>Nested lists are useful to show sub-items within a step or category.</p>
+      <ol>
+        <li>Module 1: Foundations
+          <ul>
+            <li>Topic A</li>
+            <li>Topic B
+              <ol>
+                <li>Subtopic 1</li>
+                <li>Subtopic 2</li>
+              </ol>
+            </li>
+          </ul>
+        </li>
+        <li>Module 2: Applications</li>
+      </ol>
+
+      <h3>Mixed Lists</h3>
+      <p>Mixing ordered and unordered lists gives structured flexibility:</p>
+      <ul>
+        <li>Week 1
+          <ol>
+            <li>Lecture: Introduction</li>
+            <li>Lab: Setup environment</li>
+          </ol>
+        </li>
+        <li>Week 2
+          <ol>
+            <li>Lecture: Core concepts</li>
+            <li>Assignment: Problem set 1</li>
+          </ol>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Putting it together — Example Curriculum Block</h2>
+    <div class="example">
+      <h3>Module: Web Development Basics</h3>
+      <p><strong>Overview:</strong> Learn HTML fundamentals, semantics, and structure. This module focuses on building static pages using standard HTML elements and lists.</p>
+
+      <ol>
+        <li>Week 1: HTML structure &amp; headings
+          <ul>
+            <li>Lab: Create a personal webpage</li>
+          </ul>
+        </li>
+        <li>Week 2: Text formatting &amp; special characters</li>
+        <li>Week 3: Lists &amp; nested lists</li>
+        <li>Assessment: Project + Quiz</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    <p>Need tweaks — like export to a downloadable <code>.html</code> file, add CSS themes, or convert to a printable PDF? Tell me what you prefer and I’ll iterate.</p>
+  </footer>
+</body>
+</html>
+
