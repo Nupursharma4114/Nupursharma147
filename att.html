@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>College Attendance Tracker</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #74ebd5, #acb6e5);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 95%;
+      max-width: 1100px;
+      overflow-x: auto;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    button {
+      cursor: pointer;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #388E3C;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 15px;
+      border-collapse: collapse;
+      background: #fafafa;
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background: #4CAF50;
+      color: white;
+      padding: 12px;
+    }
+
+    td {
+      padding: 8px;
+    }
+
+    #attendancePage {
+      display: none;
+    }
+
+    .logout-btn {
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      padding: 10px 16px;
+      font-weight: bold;
+    }
+
+    .logout-btn:hover {
+      background: #cc0000;
+    }
+
+    .status-present {
+      color: green;
+      font-weight: bold;
+    }
+
+    .status-absent {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- LOGIN PAGE -->
+  <div class="container" id="loginPage">
+    <h2>College Attendance Login</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Enter Username" required>
+      <input type="password" id="password" placeholder="Enter Password" required>
+      <br>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <!-- ATTENDANCE PAGE -->
+  <div class="container" id="attendancePage">
+    <h2>Attendance Tracker Dashboard</h2>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+
+    <table id="attendanceTable">
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>FSD</th>
+          <th>DAA</th>
+          <th>DBMS</th>
+          <th>Soft Computing</th>
+          <th>AI</th>
+          <th>MPMC</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    // Subjects
+    const subjects = ["FSD", "DAA", "DBMS", "Soft Computing", "AI", "MPMC"];
+    
+    // 20 Students
+    const studentsList = [
+      "Student 1","Student 2","Student 3","Student 4","Student 5",
+      "Student 6","Student 7","Student 8","Student 9","Student 10",
+      "Student 11","Student 12","Student 13","Student 14","Student 15",
+      "Student 16","Student 17","Student 18","Student 19","Student 20"
+    ];
+
+    // Initialize attendance
+    function initializeStudents() {
+      let students = JSON.parse(localStorage.getItem("students"));
+      if (!students || students.length === 0) {
+        students = studentsList.map(name => {
+          const subjStatus = {};
+          subjects.forEach(sub => subjStatus[sub] = "Not Marked");
+          return { name, subjects: subjStatus };
+        });
+        localStorage.setItem("students", JSON.stringify(students));
+        console.log("✅ Students initialized:", students);
+      }
+    }
+
+    // Page load
+    document.addEventListener("DOMContentLoaded", () => {
+      initializeStudents(); // always ensure list exists
+
+      if (localStorage.getItem("loggedIn")) {
+        showAttendancePage();
+      }
+
+      document.getElementById("loginForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        localStorage.setItem("loggedIn", "true");
+        showAttendancePage();
+      });
+    });
+
+    // Show Attendance Page
+    function showAttendancePage() {
+      document.getElementById("loginPage").style.display = "none";
+      document.getElementById("attendancePage").style.display = "block";
+      loadStudents();
+    }
+
+    // Load Students Table
+    function loadStudents() {
+      const tbody = document.querySelector("#attendanceTable tbody");
+      tbody.innerHTML = "";
+      let students = JSON.parse(localStorage.getItem("students")) || [];
+      students.forEach((student, index) => {
+        const row = document.createElement("tr");
+        let rowHtml = `<td>${student.name}</td>`;
+        subjects.forEach(sub => {
+          let statusClass = student.subjects[sub] === "Present" ? "status-present" :
+                            student.subjects[sub] === "Absent" ? "status-absent" : "";
+          rowHtml += `
+            <td>
+              <span class="${statusClass}">${student.subjects[sub]}</span><br>
+              <button onclick="markAttendance(${index}, '${sub}', 'Present')">P</button>
+              <button onclick="markAttendance(${index}, '${sub}', 'Absent')">A</button>
+            </td>`;
+        });
+        row.innerHTML = rowHtml;
+        tbody.appendChild(row);
+      });
+    }
+
+    // Mark Attendance
+    function markAttendance(index, subject, status) {
+      let students = JSON.parse(localStorage.getItem("students")) || [];
+      students[index].subjects[subject] = status;
+      localStorage.setItem("students", JSON.stringify(students));
+      loadStudents();
+    }
+
+    // Logout
+    function logout() {
+      localStorage.removeItem("loggedIn");
+      document.getElementById("attendancePage").style.display = "none";
+      document.getElementById("loginPage").style.display = "block";
+    }
+  </script>
+</body>
+</html>
